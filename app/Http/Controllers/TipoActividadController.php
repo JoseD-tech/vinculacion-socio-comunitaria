@@ -14,7 +14,8 @@ class TipoActividadController extends Controller
     public function index()
     {
         // retorna los tipos de actividades que hay en la la tabla tipo de actividades
-        return ModelsTipoActividad::all();
+        //return ModelsTipoActividad::all();
+        return view('actividades/tipo');
     }
 
     /**

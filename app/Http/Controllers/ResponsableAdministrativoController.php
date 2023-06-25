@@ -13,7 +13,8 @@ class ResponsableAdministrativoController extends Controller
     public function index()
     {
         // retorna los valores que esten en la table de responsables administrativos
-        return ResponsableAdministrativo::all();
+        //return ResponsableAdministrativo::all();
+        return view('actividades/responsable-administrativo');
     }
 
     /**

@@ -13,7 +13,9 @@ class ResponsableController extends Controller
     public function index()
     {
         // retorna los valores que esten en la table de responsables
-        return Responsable::all();
+        //return Responsable::all();
+
+        return view('actividades/responsable-academico');
     }
 
     /**

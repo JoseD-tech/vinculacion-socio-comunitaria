@@ -33,3 +33,25 @@ Route::prefix('/api')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/actividades/crear', [ActividaSocioComunitariaController::class, 'index'])->name('actividades.index');
+
+    Route::get('/actividades/tipo', [TipoActividadController::class, 'index'])->name('tipo-actividades.index');
+
+    Route::get('/actividades/programa', [ProgramaAcademicoController::class, 'index'])->name('programa.index');
+
+    Route::get('/actividades/tipo', [TipoActividadController::class, 'index'])->name('tipo-actividades.index');
+
+    Route::get('/actividades/administrativo', [ResponsableAdministrativoController::class, 'index'])->name('administrativo.index');
+
+    Route::get('/actividades/academico', [ResponsableController::class, 'index'])->name('academico.index');
+});

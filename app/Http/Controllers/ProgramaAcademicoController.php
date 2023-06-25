@@ -13,7 +13,8 @@ class ProgramaAcademicoController extends Controller
     public function index()
     {
         // restorna los diferentes programas academicos que estan presentes en la tabla programa academicos
-        return ProgramaAcademico::all();
+        //return ProgramaAcademico::all();
+        return view('actividades/programa');
     }
 
     /**

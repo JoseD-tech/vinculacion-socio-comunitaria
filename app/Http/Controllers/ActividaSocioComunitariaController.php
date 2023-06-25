@@ -15,7 +15,8 @@ class ActividaSocioComunitariaController extends Controller
     {
         // retorna lo que este en la tabla de actividades socio comunitaria
 
-        return ActividaSocioComunitaria::all();
+        //return ActividaSocioComunitaria::all();
+        return view('actividades/crear');
     }
 
     /**
