@@ -38,9 +38,6 @@ return new class extends Migration
             // Relacion ActividaSocioComunitaria a responsables
             $table->foreignId('responsable_id')->require()->constrained('responsables');
 
-            $table->integer('cedula')->require();
-            $table->bigInteger('telefono')->require();
-            $table->string('correo')->require();
             $table->date('fechaCierreActividad')->require();
             $table->integer('numeroResolucionAprobacion')->nullable();
 

@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActividaSocioComunitaria;
+use App\Models\LineaInvestigacion;
+use App\Models\ProgramaAcademico;
+use App\Models\Responsable;
+use App\Models\ResponsableAdministrativo;
+use App\Models\StatusActividad;
 use App\Models\TipoActividad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActividaSocioComunitariaController extends Controller
 {
@@ -15,8 +21,15 @@ class ActividaSocioComunitariaController extends Controller
     {
         // retorna lo que este en la tabla de actividades socio comunitaria
 
-        //return ActividaSocioComunitaria::all();
-        return view('actividades/crear');
+        $actividades = ActividaSocioComunitaria::all();
+        $tiposActividades = TipoActividad::all();
+        $programas = ProgramaAcademico::all();
+        $status = StatusActividad::all();
+        $linea = LineaInvestigacion::all();
+        $administrativo = ResponsableAdministrativo::all();
+        $responsable = Responsable::all();
+
+        return view('actividades.crear', compact('actividades', 'tiposActividades', 'programas', 'status', 'linea', 'administrativo', 'responsable'));
     }
 
     /**
@@ -33,6 +46,25 @@ class ActividaSocioComunitariaController extends Controller
     public function store(Request $request)
     {
         //
+        $user = Auth::user();
+        $data = new ActividaSocioComunitaria;
+        $data->tipo_actividad_id = implode(',', $request->input('tipoActividad'));
+        $data->programa_academico_id = implode(',', $request->input('programaActividad'));
+        $data->status_actividad = implode(',', $request->input('estadoActividad'));
+        $data->codigo_actividad = $request->input('codigoActividad');
+        $data->titulo_actividad = $request->input('tituloActividad');
+        $data->linea_investigacion_id = implode(',', $request->input('lineaActividad'));
+        $data->fechaAprobacionActividad = $request->input('fechaAprobacion');
+        $data->fechaFinalizacionActividad = $request->input('fechaFinalizacon');
+        $data->numeroPersonasAtendidas = $request->input('personasAtendidas');
+        $data->numeroPersonasInscritas = $request->input('personasInscritas');
+        $data->resp_administrativo_id = implode(',', $request->input('responsableAdministrativo'));
+        $data->responsable_id = implode(',', $request->input('responsableAcademico'));
+        $data->fechaCierreActividad = $request->input('fechaCierre');
+        $data->numeroResolucionAprobacion = $request->input('codigoActividad');
+        $data->usuario_registro_id = $user->id;
+        $data->save();
+        return redirect()->route('actividades.index');
     }
 
     /**
@@ -62,8 +94,11 @@ class ActividaSocioComunitariaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ActividaSocioComunitaria $actividaSocioComunitaria)
+    public function destroy($id)
     {
         //
+        $actividad = ActividaSocioComunitaria::find($id);
+        $actividad->delete();
+        return redirect()->route('actividades.index');
     }
 }

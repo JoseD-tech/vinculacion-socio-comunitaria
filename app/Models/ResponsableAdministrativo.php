@@ -11,6 +11,6 @@ class ResponsableAdministrativo extends Model
     // Relacion inversa responsableAdministrativo a ActividaSocioComunitaria
     public function responsablesAdministrativos()
     {
-        return $this->hasMany(ActividaSocioComunitaria::class);
+        return $this->hasMany(ActividaSocioComunitaria::class, 'resp_administrativo_id', 'id');
     }
 }

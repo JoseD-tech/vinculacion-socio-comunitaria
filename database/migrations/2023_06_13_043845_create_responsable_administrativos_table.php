@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('responsable_administrativos', function (Blueprint $table) {
             $table->id();
             $table->string('responsable_administrativo');
+            $table->integer('cedula');
+            $table->string('telefono');
+            $table->string('correo');
             $table->timestamps();
         });
     }

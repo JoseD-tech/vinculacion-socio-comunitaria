@@ -7,24 +7,14 @@ use Illuminate\Http\Request;
 
 class ResponsableController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // retorna los valores que esten en la table de responsables
-        //return Responsable::all();
+        // retorna los valores que esten en la table de responsables administrativos
+        $responsableAcademico = Responsable::all();
 
-        return view('actividades/responsable-academico');
+        return view('actividades.responsable-academico', compact('responsableAcademico'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -32,37 +22,38 @@ class ResponsableController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Responsable $responsable)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Responsable $responsable)
-    {
-        //
+        $data = new Responsable;
+        $data->responsable = $request->input('responsable');
+        $data->cedula = $request->input('cedula');
+        $data->telefono = $request->input('telefono');
+        $data->correo = $request->input('correo');
+        $data->save();
+        return redirect()->route('academico.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Responsable $responsable)
+    public function update(Request $request, $id)
     {
         //
+        $responsableAdministrativo = Responsable::findOrFail($id);
+        $responsableAdministrativo->responsable = $request->input('responsable');
+        $responsableAdministrativo->cedula = $request->input('cedula');
+        $responsableAdministrativo->telefono = $request->input('telefono');
+        $responsableAdministrativo->correo = $request->input('correo');
+        $responsableAdministrativo->save();
+        return redirect()->route('academico.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Responsable $responsable)
+    public function destroy($id)
     {
         //
+        $responsable = Responsable::find($id);
+        $responsable->delete();
+        return redirect()->route('academico.index');
     }
 }

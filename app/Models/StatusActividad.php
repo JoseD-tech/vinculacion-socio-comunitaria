@@ -10,6 +10,6 @@ class StatusActividad extends Model
     use HasFactory;
     public function statusActividades()
     {
-        return $this->hasMany(ActividaSocioComunitaria::class);
+        return $this->hasMany(ActividaSocioComunitaria::class, 'id');
     }
 }

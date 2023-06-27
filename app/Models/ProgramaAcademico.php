@@ -11,6 +11,6 @@ class ProgramaAcademico extends Model
     // Relacion Inversa programaAcademico a ActividaSocioComunitaria
     public function programaAcademicos()
     {
-        return $this->hasMany(ActividaSocioComunitaria::class);
+        return $this->hasMany(ActividaSocioComunitaria::class, 'id');
     }
 }

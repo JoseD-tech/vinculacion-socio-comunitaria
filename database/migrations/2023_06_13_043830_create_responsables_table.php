@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('responsables', function (Blueprint $table) {
             $table->id();
             $table->string('responsable');
+            $table->integer('cedula');
+            $table->string('telefono');
+            $table->string('correo');
             $table->timestamps();
         });
     }

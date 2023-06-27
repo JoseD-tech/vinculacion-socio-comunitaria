@@ -13,17 +13,11 @@ class ResponsableAdministrativoController extends Controller
     public function index()
     {
         // retorna los valores que esten en la table de responsables administrativos
-        //return ResponsableAdministrativo::all();
-        return view('actividades/responsable-administrativo');
+        $responsableAdministrativo = ResponsableAdministrativo::all();
+
+        return view('actividades/responsable-administrativo', compact('responsableAdministrativo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -31,37 +25,38 @@ class ResponsableAdministrativoController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ResponsableAdministrativo $responsableAdministrativo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ResponsableAdministrativo $responsableAdministrativo)
-    {
-        //
+        $data = new ResponsableAdministrativo;
+        $data->responsable_administrativo = $request->input('responsable_administrativo');
+        $data->cedula = $request->input('cedula');
+        $data->telefono = $request->input('telefono');
+        $data->correo = $request->input('correo');
+        $data->save();
+        return redirect()->route('administrativo.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ResponsableAdministrativo $responsableAdministrativo)
+    public function update(Request $request, $id)
     {
         //
+        $responsableAdministrativo = ResponsableAdministrativo::findOrFail($id);
+        $responsableAdministrativo->responsable_administrativo = $request->input('responsable_administrativo');
+        $responsableAdministrativo->cedula = $request->input('cedula');
+        $responsableAdministrativo->telefono = $request->input('telefono');
+        $responsableAdministrativo->correo = $request->input('correo');
+        $responsableAdministrativo->save();
+        return redirect()->route('administrativo.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ResponsableAdministrativo $responsableAdministrativo)
+    public function destroy($id)
     {
         //
+        $responsableAdministrativo = ResponsableAdministrativo::find($id);
+        $responsableAdministrativo->delete();
+        return redirect()->route('administrativo.index');
     }
 }

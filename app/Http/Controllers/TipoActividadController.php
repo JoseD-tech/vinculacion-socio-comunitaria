@@ -14,8 +14,8 @@ class TipoActividadController extends Controller
     public function index()
     {
         // retorna los tipos de actividades que hay en la la tabla tipo de actividades
-        //return ModelsTipoActividad::all();
-        return view('actividades/tipo');
+        $tipoActividad = ModelsTipoActividad::all();
+        return view('actividades.tipo', compact('tipoActividad'));
     }
 
     /**
@@ -32,6 +32,10 @@ class TipoActividadController extends Controller
     public function store(Request $request)
     {
         //
+        $data = new tipoActividad;
+        $data->tipoActividad = $request->input('tipoActividad');
+        $data->save();
+        return redirect()->route('tipo-actividades.index');
     }
 
     /**
@@ -53,16 +57,23 @@ class TipoActividadController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, tipoActividad $tipoActividad)
+    public function update(Request $request, $id)
     {
         //
+        $tipoActividad = tipoActividad::findOrFail($id);
+        $tipoActividad->TipoActividad = $request->input('tipoActividad');
+        $tipoActividad->save();
+        return redirect()->route('tipo-actividades.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(tipoActividad $tipoActividad)
+    public function destroy($id)
     {
         //
+        $tipoActividad = tipoActividad::find($id);
+        $tipoActividad->delete();
+        return redirect()->route('tipo-actividades.index');
     }
 }

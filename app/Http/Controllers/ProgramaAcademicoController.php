@@ -13,8 +13,8 @@ class ProgramaAcademicoController extends Controller
     public function index()
     {
         // restorna los diferentes programas academicos que estan presentes en la tabla programa academicos
-        //return ProgramaAcademico::all();
-        return view('actividades/programa');
+        $programaAcademico = ProgramaAcademico::all();
+        return view('actividades.programa', compact('programaAcademico'));
     }
 
     /**
@@ -31,6 +31,10 @@ class ProgramaAcademicoController extends Controller
     public function store(Request $request)
     {
         //
+        $data = new ProgramaAcademico;
+        $data->programa_academico = $request->input('programa_academico');
+        $data->save();
+        return redirect()->route('programa.index');
     }
 
     /**
@@ -52,16 +56,28 @@ class ProgramaAcademicoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProgramaAcademico $programaAcademico)
+    public function update(Request $request, $id)
     {
         //
+        $programaAcademico = ProgramaAcademico::findOrFail($id);
+        $programaAcademico->programa_academico = $request->input('programa_academico');
+        $programaAcademico->save();
+        return redirect()->route('programa.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProgramaAcademico $programaAcademico)
+    public function destroy($id)
     {
         //
+        $programaAcademico = ProgramaAcademico::find($id);
+        $programaAcademico->delete();
+        return redirect()->route('programa.index');
     }
 }
+
+
+
+
+

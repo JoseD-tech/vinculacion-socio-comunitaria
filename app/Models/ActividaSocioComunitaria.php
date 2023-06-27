@@ -23,7 +23,7 @@ class ActividaSocioComunitaria extends Model
     // Relacion ActividaSocioComunitaria a statusActividad
     public function statusActividad()
     {
-        return $this->belongsTo(StatusActividad::class);
+        return $this->belongsTo(StatusActividad::class, 'status_actividad', 'id');
     }
 
     // Relacion ActividaSocioComunitaria a lineaInvestigacion
@@ -33,15 +33,15 @@ class ActividaSocioComunitaria extends Model
     }
 
     // Relacion ActividaSocioComunitaria a responsableAdministrativo
-    public function responsableAdministrativoActividad()
+    public function responsableAdministrativo()
     {
-        return $this->belongsTo(responsableAdministrativo::class);
+        return $this->belongsTo(ResponsableAdministrativo::class, 'resp_administrativo_id', 'id');
     }
 
     // Relacion ActividaSocioComunitaria a responsableActividad
     public function responsableActividad()
     {
-        return $this->belongsTo(responsableActividad::class);
+        return $this->belongsTo(Responsable::class, 'responsable_id', 'id');
     }
 
     // Relacion ActividaSocioComunitaria a User (esto es para saber quien registro la actividad)
