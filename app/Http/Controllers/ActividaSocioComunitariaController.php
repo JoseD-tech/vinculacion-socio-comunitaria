@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ActividaSocioComunitaria;
-use App\Models\LineaInvestigacion;
-use App\Models\ProgramaAcademico;
 use App\Models\Responsable;
-use App\Models\ResponsableAdministrativo;
-use App\Models\StatusActividad;
-use App\Models\TipoActividad;
 use Illuminate\Http\Request;
+use App\Models\TipoActividad;
+use App\Models\StatusActividad;
+use App\Models\ProgramaAcademico;
+use App\Exports\ActividadesExport;
+use App\Models\LineaInvestigacion;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\ActividaSocioComunitaria;
+use App\Models\ResponsableAdministrativo;
 
 class ActividaSocioComunitariaController extends Controller
 {
@@ -100,5 +102,11 @@ class ActividaSocioComunitariaController extends Controller
         $actividad = ActividaSocioComunitaria::find($id);
         $actividad->delete();
         return redirect()->route('actividades.index');
+    }
+
+    public function export()
+    {
+        //
+        return Excel::download(new ActividadesExport, 'Actividades.xls');
     }
 }

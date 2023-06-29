@@ -49,6 +49,7 @@ Route::middleware([
     Route::post('/actividades/crear', [ActividaSocioComunitariaController::class, 'store'])->name('actividades.store');
     Route::post('/actividades/crear/{actividad}', [ActividaSocioComunitariaController::class, 'update'])->name('actividades.update');
     Route::delete('/actividades/crear/{actividad}', [ActividaSocioComunitariaController::class, 'destroy'])->name('actividades.destroy');
+    Route::get('/actividades/crear/export', [ActividaSocioComunitariaController::class, 'export'])->name('actividades.export');
 
     Route::get('/actividades/programa', [ProgramaAcademicoController::class, 'index'])->name('programa.index');
     Route::post('/actividades/programa', [ProgramaAcademicoController::class, 'store'])->name('programa.store');
