@@ -333,6 +333,18 @@ return [
             'url'  => 'actividades/programa',
             'icon' => 'fas fa-solid fa-school',
         ],
+
+        [
+            'text' => 'Linea De Investigacion',
+            'url'  => 'linea',
+            'icon' => 'fas fa-solid fa-money-check',
+        ],
+
+        [
+            'text' => 'Estados de Actividad',
+            'url'  => 'estatus',
+            'icon' => 'fas fa-check-square',
+        ],
         [
             'text'    => 'Responsable',
             'icon'    => 'fas fa-solid fa-users',

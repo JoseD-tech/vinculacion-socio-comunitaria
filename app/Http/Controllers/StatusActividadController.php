@@ -13,54 +13,37 @@ class StatusActividadController extends Controller
     public function index()
     {
         // retorna los diferentes status que esten registrados en la base de datos
-        return StatusActividad::all();
+        $statusActividad = StatusActividad::all();
+        return view('actividades.status', compact('statusActividad') );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
+        $statusActividad = new StatusActividad();
+        $statusActividad->status_actividad = $request->input('status_actividad');
+        $statusActividad->save();
+        return redirect()->route('estatus.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(StatusActividad $statusActividad)
+    public function show(Request $request, $id)
     {
         //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(StatusActividad $statusActividad)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, StatusActividad $statusActividad)
-    {
-        //
+        $linea = StatusActividad::findOrFail($id);
+        $linea->status_actividad = $request->input('status_actividad');
+        $linea->save();
+        return redirect()->route('estatus.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StatusActividad $statusActividad)
+    public function destroy($id)
     {
         //
+        $linea = StatusActividad::find($id);
+        $linea->delete();
+        return redirect()->route('estatus.index');
     }
 }

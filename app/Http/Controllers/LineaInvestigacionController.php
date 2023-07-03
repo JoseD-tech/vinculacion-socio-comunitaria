@@ -7,60 +7,36 @@ use Illuminate\Http\Request;
 
 class LineaInvestigacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         // retorna los valores que esten en la tabla linea de investigacion
-        return LineaInvestigacion::all();
+        $lineasInvestigacion = LineaInvestigacion::all();
+        return view('actividades.linea', compact('lineasInvestigacion') );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
+        $data = new LineaInvestigacion();
+        $data->linea_investigacion = $request->input('linea_investigacion');
+        $data->save();
+        return redirect()->route('linea.index');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(LineaInvestigacion $lineaInvestigacion)
+    public function update(Request $request, $id)
     {
         //
+        $linea = LineaInvestigacion::findOrFail($id);
+        $linea->linea_investigacion = $request->input('linea_investigacion');
+        $linea->save();
+        return redirect()->route('linea.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(LineaInvestigacion $lineaInvestigacion)
+    public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, LineaInvestigacion $lineaInvestigacion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(LineaInvestigacion $lineaInvestigacion)
-    {
-        //
+        $linea = LineaInvestigacion::find($id);
+        $linea->delete();
+        return redirect()->route('linea.index');
     }
 }

@@ -1,15 +1,14 @@
 @php
     $heads = ['ID', 'Nombre', ['label' => 'Actions', 'no-export' => true, 'width' => 5]];
-
 @endphp
 
 @extends('adminlte::page')
 
 
-@section('title', 'Tipos de Actividades')
+@section('title', 'Estatus De Actividad')
 
 @section('content_header')
-    <h2>Tipos de Actividades</h2>
+    <h2>Estatus De Actividad</h2>
 @stop
 
 @section('content')
@@ -19,46 +18,50 @@
             <div class="d-flex align-items-center justify-content-end">
                 <p>Acciones:</p>
                 <div>
-                    <x-adminlte-button label="Registrar Tipo de Actividad" data-toggle="modal"
-                        data-target="#registrarTipoActividad" class="bg-success" icon="fas fa-plus" />
+                    <x-adminlte-button label="Registrar Estatus" data-toggle="modal"
+                        data-target="#registrarEstatus" class="bg-success" icon="fas fa-plus" />
                 </div>
             </div>
         @endrole
 
 
+
         <div class="mt-2">
             <x-adminlte-datatable id="table1" :heads="$heads" class="bg-white">
-                @foreach ($tipoActividad as $tipo)
+
+                @foreach ($statusActividad as $estatus)
                     <tr>
-                        <td>{{ $tipo->id }}</td>
-                        <td>{{ $tipo->TipoActividad }}</td>
+                        <td>{{ $estatus->id }}</td>
+                        <td>{{ $estatus->status_actividad }}</td>
                         <td class="d-flex">
-                            <x-adminlte-button id="editar-tipo-{{ $tipo->id }}" data-toggle="modal"
-                                data-target="#editar-tipo-{{ $tipo->id }}" theme="primary" icon="fa fa-lg fa-fw fa-pen"
-                                class="mr-2" />
+                            <x-adminlte-button id="editar-estatus-{{ $estatus->id }}" data-toggle="modal"
+                                data-target="#editar-estatus-{{ $estatus->id }}" theme="primary"
+                                icon="fa fa-lg fa-fw fa-pen" class="mr-2" />
                             @role('admin')
-                                <form action="{{ route('tipo-actividades.destroy', $tipo->id) }}" method="POST">
+                                <form action="{{ route('estatus.destroy', $estatus->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <x-adminlte-button type='submit' theme="danger" icon="fa fa-lg fa-fw fa-trash"
                                         class="mr-2" />
                                 </form>
                             @endrole
+
                         </td>
-                        <x-adminlte-modal id="editar-tipo-{{ $tipo->id }}" title="Editar Tipo De Actividad"
-                            theme="primary" icon="fas fa-pen" size='md' disable-animations>
-                            <form method="POST" action=" {{ route('tipo-actividades.update', $tipo->id) }} ">
+                        <x-adminlte-modal id="editar-estatus-{{ $estatus->id }}" title="Editar Estatus" theme="primary"
+                            icon="fas fa-pen" size='md' disable-animations>
+                            <form method="PUT" action=" {{ route('estatus.update', $estatus->id) }} ">
                                 @csrf
                                 <div class="form-row">
 
                                     <div class="col-md-12 mb-3">
-                                        <label for="tipoActividad">Tipo De Actividad</label>
-                                        <input type="text" name="tipoActividad" placeholder="{{ $tipo->TipoActividad }}"
-                                            class="form-control" id="tipoActividad" required>
+                                        <label for="status_actividad">Estatus</label>
+                                        <input type="text" name="status_actividad"
+                                            placeholder="{{ $estatus->status_actividad }}" class="form-control"
+                                            id="status_actividad" required>
                                     </div>
 
                                 </div>
-                                <button class="btn btn-success w-100 mt-4" type="submit">Registrar Tipo De Datos</button>
+                                <button class="btn btn-success w-100 mt-4" type="submit">Actualizar Estatus</button>
                             </form>
                             <x-slot name="footerSlot">
                                 <x-adminlte-button theme="danger" label="Cerrar" data-dismiss="modal" />
@@ -66,30 +69,33 @@
                         </x-adminlte-modal>
                     </tr>
                 @endforeach
+
             </x-adminlte-datatable>
         </div>
 
     </div>
+
     @role('admin')
-        <x-adminlte-modal id="registrarTipoActividad" title="Registrar Tipo De Actividad" theme="success" icon="fas fa-plus"
-            size='md' disable-animations>
-            <form method="POST" action=" {{ route('tipo-actividades.store') }} ">
+        <x-adminlte-modal id="registrarEstatus" title="Registrar Estatus" theme="success"
+            icon="fas fa-plus" size='md' disable-animations>
+            <form method="post" action="{{ route('estatus.store') }}">
                 @csrf
                 <div class="form-row">
 
                     <div class="col-md-12 mb-3">
-                        <label for="tipoActividad">Tipo De Actividad</label>
-                        <input type="text" name="tipoActividad" class="form-control" id="tipoActividad" required>
+                        <label for="status_actividad">Estatus</label>
+                        <input type="text" class="form-control" id="status_actividad" name="status_actividad" required>
                     </div>
 
                 </div>
-                <button class="btn btn-success w-100 mt-4" type="submit">Registrar Tipo De Datos</button>
+                <button class="btn btn-success w-100 mt-4" type="submit">Registrar Estatus</button>
             </form>
             <x-slot name="footerSlot">
                 <x-adminlte-button theme="danger" label="Cancelar Registro" data-dismiss="modal" />
             </x-slot>
         </x-adminlte-modal>
     @endrole
+
 
 @stop
 

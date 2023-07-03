@@ -1,15 +1,22 @@
 <?php
 
-use App\Http\Controllers\ActividaSocioComunitariaController;
-use App\Http\Controllers\LineaInvestigacionController;
-use App\Http\Controllers\ProgramaAcademicoController;
-use App\Http\Controllers\ResponsableAdministrativoController;
-use App\Http\Controllers\ResponsableController;
-use App\Http\Controllers\StatusActividadController;
-use App\Http\Controllers\TipoActividadController;
 use App\Http\Controllers\Usuarios;
-use App\Models\ActividaSocioComunitaria;
+use App\Models\LineaInvestigacion;
 use Illuminate\Support\Facades\Route;
+use App\Models\ActividaSocioComunitaria;
+use App\Http\Controllers\ResponsableController;
+use App\Http\Controllers\TipoActividadController;
+use App\Http\Controllers\StatusActividadController;
+use App\Http\Controllers\ProgramaAcademicoController;
+use App\Http\Controllers\LineaInvestigacionController;
+use App\Http\Controllers\ActividaSocioComunitariaController;
+use App\Http\Controllers\ResponsableAdministrativoController;
+use App\Models\ProgramaAcademico;
+use App\Models\Responsable;
+use App\Models\ResponsableAdministrativo;
+use App\Models\StatusActividad;
+use App\Models\TipoActividad;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +49,19 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
+
+        // retorna los valores que esten en la tabla linea de investigacion
+        $actividades = ActividaSocioComunitaria::count();
+        $tipos = TipoActividad::count();
+        $programas = ProgramaAcademico::count();
+        $cantidadLinea = LineaInvestigacion::count();
+        $estados = StatusActividad::count();
+        $administrativos = ResponsableAdministrativo::count();
+        $academicos = Responsable::count();
+        $usuarios = User::count();
+
+        return view('dashboard', compact('actividades', 'tipos', 'programas', 'cantidadLinea', 'estados', 'administrativos', 'academicos', 'usuarios'));
+
         return view('dashboard');
     })->name('dashboard');
 
@@ -73,4 +93,13 @@ Route::middleware([
     Route::delete('/actividades/academico/{academico}', [ResponsableController::class, 'destroy'])->name('academico.destroy');
 
     Route::get('/usuarios', [Usuarios::class, 'index'])->name('usuario.index');
+    Route::post('/usuarios', [Usuarios::class, 'store'])->name('usuario.store');
+    Route::delete('/usuarios/{usuario}', [Usuarios::class, 'destroy'])->name('usuario.destroy');
+
+    Route::get('linea', [LineaInvestigacionController::class, 'index'])->name('linea.index');
+    Route::post('linea', [LineaInvestigacionController::class, 'store'])->name('linea.store');
+    Route::post('linea/{linea}', [LineaInvestigacionController::class, 'update'])->name('linea.update');
+    Route::delete('linea/{linea}', [LineaInvestigacionController::class, 'destroy'])->name('linea.destroy');
+
+    Route::resource('estatus', StatusActividadController::class);
 });

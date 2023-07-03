@@ -5,10 +5,10 @@
 @extends('adminlte::page')
 
 
-@section('title', 'Programas Academicos')
+@section('title', 'Linea De Investigacion')
 
 @section('content_header')
-    <h2>Programas Academicos</h2>
+    <h2>Linea De Investigacion</h2>
 @stop
 
 @section('content')
@@ -18,8 +18,8 @@
             <div class="d-flex align-items-center justify-content-end">
                 <p>Acciones:</p>
                 <div>
-                    <x-adminlte-button label="Registrar Programas Academicos" data-toggle="modal"
-                        data-target="#registrarProgramaActividad" class="bg-success" icon="fas fa-plus" />
+                    <x-adminlte-button label="Registrar Linea de Investigacion" data-toggle="modal"
+                        data-target="#registrarlineaActividad" class="bg-success" icon="fas fa-plus" />
                 </div>
             </div>
         @endrole
@@ -29,16 +29,16 @@
         <div class="mt-2">
             <x-adminlte-datatable id="table1" :heads="$heads" class="bg-white">
 
-                @foreach ($programaAcademico as $programa)
+                @foreach ($lineasInvestigacion as $linea)
                     <tr>
-                        <td>{{ $programa->id }}</td>
-                        <td>{{ $programa->programa_academico }}</td>
+                        <td>{{ $linea->id }}</td>
+                        <td>{{ $linea->linea_investigacion }}</td>
                         <td class="d-flex">
-                            <x-adminlte-button id="editar-programa-{{ $programa->id }}" data-toggle="modal"
-                                data-target="#editar-programa-{{ $programa->id }}" theme="primary"
+                            <x-adminlte-button id="editar-linea-{{ $linea->id }}" data-toggle="modal"
+                                data-target="#editar-linea-{{ $linea->id }}" theme="primary"
                                 icon="fa fa-lg fa-fw fa-pen" class="mr-2" />
                             @role('admin')
-                                <form action="{{ route('programa.destroy', $programa->id) }}" method="POST">
+                                <form action="{{ route('linea.destroy', $linea->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <x-adminlte-button type='submit' theme="danger" icon="fa fa-lg fa-fw fa-trash"
@@ -47,22 +47,22 @@
                             @endrole
 
                         </td>
-                        <x-adminlte-modal id="editar-programa-{{ $programa->id }}" title="Editar Programa" theme="primary"
+                        <x-adminlte-modal id="editar-linea-{{ $linea->id }}" title="Editar Linea De Investigacion" theme="primary"
                             icon="fas fa-pen" size='md' disable-animations>
-                            <form method="POST" action=" {{ route('programa.update', $programa->id) }} ">
+                            <form method="POST" action=" {{ route('linea.update', $linea->id) }} ">
                                 @csrf
                                 <div class="form-row">
 
                                     <div class="col-md-12 mb-3">
-                                        <label for="programa_academico">Programa De Actividad</label>
-                                        <input type="text" name="programa_academico"
-                                            placeholder="{{ $programa->programa_academico }}" class="form-control"
-                                            id="programa_academico" required>
+                                        <label for="linea_investigacion">linea De Investigacion</label>
+                                        <input type="text" name="linea_investigacion"
+                                            placeholder="{{ $linea->linea_investigacion }}" class="form-control"
+                                            id="linea_investigacion" required>
                                     </div>
 
                                 </div>
-                                <button class="btn btn-success w-100 mt-4" type="submit">Registrar programa De
-                                    Datos</button>
+                                <button class="btn btn-success w-100 mt-4" type="submit">Actualizar Linea De
+                                    Investigacion</button>
                             </form>
                             <x-slot name="footerSlot">
                                 <x-adminlte-button theme="danger" label="Cerrar" data-dismiss="modal" />
@@ -77,19 +77,19 @@
     </div>
 
     @role('admin')
-        <x-adminlte-modal id="registrarProgramaActividad" title="Registrar programa De Actividad" theme="success"
+        <x-adminlte-modal id="registrarlineaActividad" title="Registrar linea De Actividad" theme="success"
             icon="fas fa-plus" size='md' disable-animations>
-            <form method="post" action="{{ route('programa.store') }}">
+            <form method="post" action="{{ route('linea.store') }}">
                 @csrf
                 <div class="form-row">
 
                     <div class="col-md-12 mb-3">
-                        <label for="programa_academico">Programa Academico</label>
-                        <input type="text" class="form-control" id="programa_academico" name="programa_academico" required>
+                        <label for="linea_investigacion">Linea De Investigacion</label>
+                        <input type="text" class="form-control" id="linea_investigacion" name="linea_investigacion" required>
                     </div>
 
                 </div>
-                <button class="btn btn-success w-100 mt-4" type="submit">Registrar Programa Academico</button>
+                <button class="btn btn-success w-100 mt-4" type="submit">Registrar Linea De Investigacion</button>
             </form>
             <x-slot name="footerSlot">
                 <x-adminlte-button theme="danger" label="Cancelar Registro" data-dismiss="modal" />
