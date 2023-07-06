@@ -10,6 +10,7 @@ use App\Http\Controllers\StatusActividadController;
 use App\Http\Controllers\ProgramaAcademicoController;
 use App\Http\Controllers\LineaInvestigacionController;
 use App\Http\Controllers\ActividaSocioComunitariaController;
+use App\Http\Controllers\ConsultaEstatus;
 use App\Http\Controllers\ResponsableAdministrativoController;
 use App\Models\ProgramaAcademico;
 use App\Models\Responsable;
@@ -42,6 +43,9 @@ Route::prefix('/api')->group(function () {
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::resource('consulta-estatus', ConsultaEstatus::class);
+
 
 Route::middleware([
     'auth:sanctum',
@@ -102,4 +106,5 @@ Route::middleware([
     Route::delete('linea/{linea}', [LineaInvestigacionController::class, 'destroy'])->name('linea.destroy');
 
     Route::resource('estatus', StatusActividadController::class);
+
 });

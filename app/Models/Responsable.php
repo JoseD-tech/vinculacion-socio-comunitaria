@@ -11,6 +11,6 @@ class Responsable extends Model
     // Relacion inversa responsables a ActividaSocioComunitaria
     public function responsablesActividades()
     {
-        return $this->hasMany(ActividaSocioComunitaria::class, 'id', 'responsable_id');
+        return $this->hasMany(ActividaSocioComunitaria::class, 'id');
     }
 }
