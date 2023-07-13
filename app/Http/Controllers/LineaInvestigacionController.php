@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LineaInvestigacion;
+use App\Exports\LineaExport;
 use Illuminate\Http\Request;
+use App\Models\LineaInvestigacion;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LineaInvestigacionController extends Controller
 {
@@ -39,4 +41,13 @@ class LineaInvestigacionController extends Controller
         $linea->delete();
         return redirect()->route('linea.index');
     }
+
+    public function export($id) {
+        $lineaName = LineaInvestigacion::where('id', $id)->get();
+        $nombre = $lineaName[0]->linea_investigacion;
+        $nombreArchivo = sprintf('Lote de Linea de %s.xlsx', $nombre);
+        return Excel::download(new LineaExport($id), $nombreArchivo);
+    }
+
+
 }

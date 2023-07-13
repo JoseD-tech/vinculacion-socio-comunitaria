@@ -18,8 +18,8 @@
             <div class="d-flex align-items-center justify-content-end">
                 <p>Acciones:</p>
                 <div>
-                    <x-adminlte-button label="Registrar Estatus" data-toggle="modal"
-                        data-target="#registrarEstatus" class="bg-success" icon="fas fa-plus" />
+                    <x-adminlte-button label="Registrar Estatus" data-toggle="modal" data-target="#registrarEstatus"
+                        class="bg-success" icon="fas fa-plus" />
                 </div>
             </div>
         @endrole
@@ -37,6 +37,9 @@
                             <x-adminlte-button id="editar-estatus-{{ $estatus->id }}" data-toggle="modal"
                                 data-target="#editar-estatus-{{ $estatus->id }}" theme="primary"
                                 icon="fa fa-lg fa-fw fa-pen" class="mr-2" />
+                            <a href="{{ route('estatus.export', $estatus->id) }}">
+                                <x-adminlte-button theme="info" icon="fa fa-lg fa-fw fa-arrow-down" class="mr-2" />
+                            </a>
                             @role('admin')
                                 <form action="{{ route('estatus.destroy', $estatus->id) }}" method="POST">
                                     @csrf
@@ -49,7 +52,7 @@
                         </td>
                         <x-adminlte-modal id="editar-estatus-{{ $estatus->id }}" title="Editar Estatus" theme="primary"
                             icon="fas fa-pen" size='md' disable-animations>
-                            <form method="PUT" action=" {{ route('estatus.update', $estatus->id) }} ">
+                            <form method="POST" action=" {{ route('estatus.update', $estatus->id) }} ">
                                 @csrf
                                 <div class="form-row">
 
@@ -76,8 +79,8 @@
     </div>
 
     @role('admin')
-        <x-adminlte-modal id="registrarEstatus" title="Registrar Estatus" theme="success"
-            icon="fas fa-plus" size='md' disable-animations>
+        <x-adminlte-modal id="registrarEstatus" title="Registrar Estatus" theme="success" icon="fas fa-plus" size='md'
+            disable-animations>
             <form method="post" action="{{ route('estatus.store') }}">
                 @csrf
                 <div class="form-row">

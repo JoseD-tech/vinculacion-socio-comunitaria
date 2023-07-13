@@ -35,8 +35,11 @@
                         <td>{{ $linea->linea_investigacion }}</td>
                         <td class="d-flex">
                             <x-adminlte-button id="editar-linea-{{ $linea->id }}" data-toggle="modal"
-                                data-target="#editar-linea-{{ $linea->id }}" theme="primary"
-                                icon="fa fa-lg fa-fw fa-pen" class="mr-2" />
+                                data-target="#editar-linea-{{ $linea->id }}" theme="primary" icon="fa fa-lg fa-fw fa-pen"
+                                class="mr-2" />
+                            <a href="{{ route('linea.export', $linea->id) }}">
+                                <x-adminlte-button theme="info" icon="fa fa-lg fa-fw fa-arrow-down" class="mr-2" />
+                            </a>
                             @role('admin')
                                 <form action="{{ route('linea.destroy', $linea->id) }}" method="POST">
                                     @csrf
@@ -47,8 +50,8 @@
                             @endrole
 
                         </td>
-                        <x-adminlte-modal id="editar-linea-{{ $linea->id }}" title="Editar Linea De Investigacion" theme="primary"
-                            icon="fas fa-pen" size='md' disable-animations>
+                        <x-adminlte-modal id="editar-linea-{{ $linea->id }}" title="Editar Linea De Investigacion"
+                            theme="primary" icon="fas fa-pen" size='md' disable-animations>
                             <form method="POST" action=" {{ route('linea.update', $linea->id) }} ">
                                 @csrf
                                 <div class="form-row">
@@ -77,8 +80,8 @@
     </div>
 
     @role('admin')
-        <x-adminlte-modal id="registrarlineaActividad" title="Registrar linea De Actividad" theme="success"
-            icon="fas fa-plus" size='md' disable-animations>
+        <x-adminlte-modal id="registrarlineaActividad" title="Registrar linea De Actividad" theme="success" icon="fas fa-plus"
+            size='md' disable-animations>
             <form method="post" action="{{ route('linea.store') }}">
                 @csrf
                 <div class="form-row">

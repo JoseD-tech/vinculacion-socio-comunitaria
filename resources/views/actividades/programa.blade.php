@@ -37,6 +37,10 @@
                             <x-adminlte-button id="editar-programa-{{ $programa->id }}" data-toggle="modal"
                                 data-target="#editar-programa-{{ $programa->id }}" theme="primary"
                                 icon="fa fa-lg fa-fw fa-pen" class="mr-2" />
+                            <a href="{{ route('programa.export', $programa->id) }}">
+                                <x-adminlte-button theme="info" icon="fa fa-lg fa-fw fa-arrow-down" class="mr-2" />
+                            </a>
+
                             @role('admin')
                                 <form action="{{ route('programa.destroy', $programa->id) }}" method="POST">
                                     @csrf

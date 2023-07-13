@@ -79,11 +79,13 @@ Route::middleware([
     Route::post('/actividades/programa', [ProgramaAcademicoController::class, 'store'])->name('programa.store');
     Route::post('/actividades/programa/{programa}', [ProgramaAcademicoController::class, 'update'])->name('programa.update');
     Route::delete('/actividades/programa/{programa}', [ProgramaAcademicoController::class, 'destroy'])->name('programa.destroy');
+    Route::get('/actividades/programa/{programa}', [ProgramaAcademicoController::class, 'export'])->name('programa.export');
 
     Route::get('/actividades/tipo', [TipoActividadController::class, 'index'])->name('tipo-actividades.index');
     Route::post('/actividades/tipo', [TipoActividadController::class, 'store'])->name('tipo-actividades.store');
     Route::post('/actividades/tipo/{tipo}', [TipoActividadController::class, 'update'])->name('tipo-actividades.update');
     Route::delete('/actividades/tipo/{tipo}', [TipoActividadController::class, 'destroy'])->name('tipo-actividades.destroy');
+    Route::get('/actividades/tipo/{tipo}', [TipoActividadController::class, 'export'])->name('tipo.export');
 
     Route::get('/actividades/administrativo', [ResponsableAdministrativoController::class, 'index'])->name('administrativo.index');
     Route::post('/actividades/administrativo', [ResponsableAdministrativoController::class, 'store'])->name('administrativo.store');
@@ -104,7 +106,13 @@ Route::middleware([
     Route::post('linea', [LineaInvestigacionController::class, 'store'])->name('linea.store');
     Route::post('linea/{linea}', [LineaInvestigacionController::class, 'update'])->name('linea.update');
     Route::delete('linea/{linea}', [LineaInvestigacionController::class, 'destroy'])->name('linea.destroy');
+    Route::get('linea/{linea}', [LineaInvestigacionController::class, 'export'])->name('linea.export');
 
-    Route::resource('estatus', StatusActividadController::class);
+
+    Route::get('estatus', [StatusActividadController::class, 'index'])->name('estatus.index');
+    Route::post('estatus', [StatusActividadController::class, 'store'])->name('estatus.store');
+    Route::post('estatus/{estatus}', [StatusActividadController::class, 'update'])->name('estatus.update');
+    Route::delete('estatus/{estatus}', [StatusActividadController::class, 'destroy'])->name('estatus.destroy');
+    Route::get('estatus/{estatus}', [StatusActividadController::class, 'export'])->name('estatus.export');
 
 });

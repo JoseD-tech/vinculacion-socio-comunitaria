@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProgramaAcademico;
 use Illuminate\Http\Request;
+use App\Exports\ProgramaExport;
+use App\Models\ProgramaAcademico;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProgramaAcademicoController extends Controller
 {
@@ -37,25 +39,6 @@ class ProgramaAcademicoController extends Controller
         return redirect()->route('programa.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ProgramaAcademico $programaAcademico)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ProgramaAcademico $programaAcademico)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         //
@@ -65,9 +48,6 @@ class ProgramaAcademicoController extends Controller
         return redirect()->route('programa.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         //
@@ -75,6 +55,14 @@ class ProgramaAcademicoController extends Controller
         $programaAcademico->delete();
         return redirect()->route('programa.index');
     }
+
+    public function export($id) {
+        $programaName = ProgramaAcademico::where('id', $id)->get();
+        $nombre = $programaName[0]->programa_academico;
+        $nombreArchivo = sprintf('Lote de Programa Academico de %s.xlsx', $nombre);
+        return Excel::download(new ProgramaExport($id), $nombreArchivo);
+    }
+
 }
 
 

@@ -33,18 +33,6 @@ class ActividaSocioComunitariaController extends Controller
 
         return view('actividades.crear', compact('actividades', 'tiposActividades', 'programas', 'status', 'linea', 'administrativo', 'responsable'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
@@ -69,33 +57,6 @@ class ActividaSocioComunitariaController extends Controller
         return redirect()->route('actividades.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ActividaSocioComunitaria $actividaSocioComunitaria)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ActividaSocioComunitaria $actividaSocioComunitaria)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ActividaSocioComunitaria $actividaSocioComunitaria)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         //

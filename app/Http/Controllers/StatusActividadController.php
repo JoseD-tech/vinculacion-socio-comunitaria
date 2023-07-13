@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StatusActividad;
 use Illuminate\Http\Request;
+use App\Exports\EstadoExport;
+use App\Models\StatusActividad;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StatusActividadController extends Controller
 {
@@ -26,7 +28,7 @@ class StatusActividadController extends Controller
         return redirect()->route('estatus.index');
     }
 
-    public function show(Request $request, $id)
+    public function update(Request $request, $id)
     {
         //
 
@@ -46,4 +48,12 @@ class StatusActividadController extends Controller
         $linea->delete();
         return redirect()->route('estatus.index');
     }
+
+    public function export($id) {
+        $statusName = StatusActividad::where('id', $id)->get();
+        $nombre = $statusName[0]->status_actividad;
+        $nombreArchivo = sprintf('Lote de Estado de Actividad de %s.xlsx', $nombre);
+        return Excel::download(new EstadoExport($id), $nombreArchivo);
+    }
+
 }

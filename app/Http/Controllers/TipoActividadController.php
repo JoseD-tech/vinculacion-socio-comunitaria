@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tipoActividad;
-use App\Models\TipoActividad as ModelsTipoActividad;
+use App\Exports\TipoExport;
 use Illuminate\Http\Request;
+use App\Models\tipoActividad;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\TipoActividad as ModelsTipoActividad;
 
 class TipoActividadController extends Controller
 {
@@ -18,17 +20,6 @@ class TipoActividadController extends Controller
         return view('actividades.tipo', compact('tipoActividad'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
@@ -38,25 +29,6 @@ class TipoActividadController extends Controller
         return redirect()->route('tipo-actividades.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(tipoActividad $tipoActividad)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(tipoActividad $tipoActividad)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         //
@@ -66,9 +38,6 @@ class TipoActividadController extends Controller
         return redirect()->route('tipo-actividades.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         //
@@ -76,4 +45,12 @@ class TipoActividadController extends Controller
         $tipoActividad->delete();
         return redirect()->route('tipo-actividades.index');
     }
+
+    public function export($id) {
+        $tipoName = tipoActividad::where('id', $id)->get();
+        $nombre = $tipoName[0]->TipoActividad;
+        $nombreArchivo = sprintf('Lote de Tipo de Actividad de %s.xlsx', $nombre);
+        return Excel::download(new TipoExport($id), $nombreArchivo);
+    }
+
 }

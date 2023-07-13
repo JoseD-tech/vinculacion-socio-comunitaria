@@ -36,6 +36,9 @@
                             <x-adminlte-button id="editar-tipo-{{ $tipo->id }}" data-toggle="modal"
                                 data-target="#editar-tipo-{{ $tipo->id }}" theme="primary" icon="fa fa-lg fa-fw fa-pen"
                                 class="mr-2" />
+                            <a href="{{ route('tipo.export', $tipo->id) }}">
+                                <x-adminlte-button theme="info" icon="fa fa-lg fa-fw fa-arrow-down" class="mr-2" />
+                            </a>
                             @role('admin')
                                 <form action="{{ route('tipo-actividades.destroy', $tipo->id) }}" method="POST">
                                     @csrf
